@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load data
-train_df = pd.read_csv("HR-Employee-Attrition_preprocessing/train_processed.csv")
-test_df = pd.read_csv("HR-Employee-Attrition_preprocessing/test_processed.csv")
+train_df = pd.read_csv("HR-Employee-Attrition_preprosessing/train_processed.csv")
+test_df = pd.read_csv("HR-Employee-Attrition_preprosessing/test_processed.csv")
 
 X_train = train_df.drop(columns=["Attrition"])
 y_train = train_df["Attrition"]
