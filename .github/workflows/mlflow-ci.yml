@@ -83,7 +83,7 @@ jobs:
       - name: Get latest MLflow run id
         id: get_run
         run: |
-          RUN_ID=$(mlflow runs list --max-results 1 --output json | jq -r '.[0].run_id')
+          RUN_ID=$(mlflow runs list --output json | jq -r '.[0].run_id')
 
           if [ -z "$RUN_ID" ] || [ "$RUN_ID" = "null" ]; then
             echo "ERROR: RUN_ID kosong"
@@ -93,7 +93,9 @@ jobs:
           echo "RUN_ID=$RUN_ID"
           echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
 
-
+      - name: Debug MLflow runs
+        run: |
+            mlflow runs list
 
       # =========================
       # Install Python dependencies
