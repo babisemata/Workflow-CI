@@ -117,7 +117,7 @@ jobs:
           cd MLProject
           mlflow models build-docker \
             -m runs:/${{ steps.get_run.outputs.run_id }}/model \
-            -n ${{ secrets.DOCKERHUB_USERNAME }}/hr-attrition-mlflow
+            -n ${{ secrets.DOCKER_USERNAME }}/hr-attrition-mlflow
 
       # =========================
       # Login Docker Hub
