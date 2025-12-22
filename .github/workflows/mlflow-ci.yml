@@ -84,7 +84,7 @@ jobs:
         id: get_run
         run: |
           RUN_ID=$(mlflow runs list \
-          --experiment-name HR_Attrition_Modelling_Tuning_Custom \
+          --experiment-name hr-attrition-ci \
           --max-results 1 \
           --output json | jq -r '.[0].run_id')
 
