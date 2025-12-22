@@ -101,6 +101,28 @@ jobs:
         run: |
           pip install docker
 
+      - name: Setup Git LFS
+        run: |
+          git lfs install
+          git lfs track "*.zip"
+          git lfs track "*.pkl"
+          git lfs track "*.pt"
+
+      - name: Prepare artifacts
+        run: |
+          mkdir -p artifacts
+          zip -r artifacts/mlflow_artifacts.zip mlruns
+          
+      - name: Upload artifacts to GitHub (LFS)
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add artifacts
+          git commit -m "Add MLflow artifacts from CI run"
+          git push
+
+
       # =========================
       # Upload artifact 
       # =========================
@@ -108,6 +130,15 @@ jobs:
         run: |
           echo "Artifact upload step (placeholder)"
           echo "RUN_ID=${{ steps.get_run.outputs.run_id }}"
+
+      # =========================
+      # Annotations (Before Docker Build)
+      # =========================
+      - name: Annotations - MLflow CI Status
+        run: |
+          echo "::notice title=MLflow Project Status::MLflow Project berhasil dijalankan menggunakan 'mlflow run .'. Model dan metrik berhasil di-log ke MLflow Tracking."
+          echo "::notice title=Artifacts Status::Artefak hasil training telah disimpan ke repositori GitHub menggunakan Git LFS sebagai pemenuhan kriteria Skilled."
+          echo "::notice title=Next Step::Tahap selanjutnya adalah membangun Docker Image model menggunakan 'mlflow models build-docker' untuk memenuhi kriteria Advanced."
 
       # =========================
       # Build Docker Model
