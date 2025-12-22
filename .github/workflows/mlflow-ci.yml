@@ -42,11 +42,37 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install mlflow pandas scikit-learn matplotlib seaborn
+          
+      # =========================
+      # Setup Miniconda
+      # =========================
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          python-version: "3.10"
+          activate-environment: mlflow-env
+          auto-activate-base: false
+
+      - name: Check Conda
+        shell: bash -l {0}
+        run: |
+          conda --version
+          python --version
+
+      # =========================
+      # Install MLflow
+      # =========================
+      - name: Install MLflow
+        shell: bash -l {0}
+        run: |
+          pip install mlflow scikit-learn pandas matplotlib seaborn
 
       # =========================
       # Run MLflow Project
       # =========================
-      - name: Run mlflow project
+      - name: Run MLflow Project
+        shell: bash -l {0}
         run: |
           cd MLProject
           mlflow run .
@@ -61,7 +87,7 @@ jobs:
           echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
 
       # =========================
-      # Install Python dependencies (Docker build needs it)
+      # Install Python dependencies
       # =========================
       - name: Install Python dependencies
         run: |
