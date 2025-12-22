@@ -94,10 +94,6 @@ jobs:
           echo "RUN_ID=$RUN_ID"
           echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
 
-      - name: Debug MLflow runs
-        run: |
-            mlflow runs list
-
       # =========================
       # Install Python dependencies
       # =========================
