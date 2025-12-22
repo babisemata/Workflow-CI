@@ -42,7 +42,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install mlflow pandas scikit-learn matplotlib seaborn
-          
+
       # =========================
       # Setup Miniconda
       # =========================
@@ -84,7 +84,7 @@ jobs:
         id: get_run
         run: |
           RUN_ID=$(mlflow runs list -q | head -n 1)
-          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
+          echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
 
       # =========================
       # Install Python dependencies
