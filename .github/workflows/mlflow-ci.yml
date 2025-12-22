@@ -80,14 +80,15 @@ jobs:
       # =========================
       # Get latest MLflow run id
       # =========================
-      - name: Get latest MLflow run id
+      - name: Get MLflow run id from file
         id: get_run
         run: |
-          RUN_ID=$(mlflow runs list --output json | jq -r '.[0].run_id')
+          cd MLProject
+          RUN_ID=$(cat run_id.txt)
 
-          if [ -z "$RUN_ID" ] || [ "$RUN_ID" = "null" ]; then
-            echo "ERROR: RUN_ID kosong"
-            exit 1
+          if [ -z "$RUN_ID" ]; then
+            echo "ERROR: run_id.txt kosong"
+          exit 1
           fi
 
           echo "RUN_ID=$RUN_ID"
