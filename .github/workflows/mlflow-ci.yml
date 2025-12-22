@@ -83,8 +83,14 @@ jobs:
       - name: Get latest MLflow run id
         id: get_run
         run: |
-          RUN_ID=$(mlflow runs list -q | head -n 1)
+          RUN_ID=$(mlflow runs list \
+          --experiment-name HR_Attrition_Modelling_Tuning_Custom \
+          --max-results 1 \
+          --output json | jq -r '.[0].run_id')
+
+          echo "RUN_ID=$RUN_ID"
           echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
+
 
       # =========================
       # Install Python dependencies
