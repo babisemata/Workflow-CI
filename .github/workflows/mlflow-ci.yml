@@ -101,20 +101,23 @@ jobs:
         run: |
           pip install docker
 
+      # =========================
+      # Prepare MLflow Artifacts
+      # =========================
+      - name: Prepare MLflow artifacts
+        run: |
+          mkdir -p artifacts
+          zip -r artifacts/ci_artifacts.zip MLProject/mlruns
+
       - name: Upload CI Artifacts
         uses: actions/upload-artifact@v4
         with:
               name: ci-artifacts
               path: artifacts/ci_artifacts.zip
-              
-      # =========================
-      # Annotations
-      # =========================
-      - name: Annotations - MLflow CI Status
+
+      - name: Debug artifacts
         run: |
-          echo "::notice title=MLflow Project Status::MLflow Project berhasil dijalankan menggunakan 'mlflow run .'. Model dan metrik berhasil di-log ke MLflow Tracking."
-          echo "::notice title=Artifacts Status::Artefak hasil training telah disimpan ke repositori GitHub menggunakan Git LFS sebagai pemenuhan kriteria Skilled."
-          echo "::notice title=Next Step::Tahap selanjutnya adalah membangun Docker Image model menggunakan 'mlflow models build-docker' untuk memenuhi kriteria Advanced."
+          ls -R artifacts || echo "Folder artifacts tidak ada"
 
       # =========================
       # Build Docker Model
