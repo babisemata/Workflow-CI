@@ -111,7 +111,8 @@ jobs:
       - name: Prepare artifacts
         run: |
           mkdir -p artifacts
-          zip -r artifacts/mlflow_artifacts.zip mlruns
+          zip -r artifacts/ci_artifacts.zip MLProject
+
           
       - name: Upload artifacts to GitHub (LFS)
         run: |
@@ -132,7 +133,7 @@ jobs:
           echo "RUN_ID=${{ steps.get_run.outputs.run_id }}"
 
       # =========================
-      # Annotations (Before Docker Build)
+      # Annotations
       # =========================
       - name: Annotations - MLflow CI Status
         run: |
