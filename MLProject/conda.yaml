@@ -1,4 +1,4 @@
-name: mlflow_env
+name: hr_attrition_env
 channels:
   - conda-forge
 dependencies:
@@ -6,9 +6,7 @@ dependencies:
   - pip
   - pip:
       - mlflow
-      - pandas
       - scikit-learn
-      - joblib
+      - pandas
       - matplotlib
       - seaborn
-      - scipy

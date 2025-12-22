@@ -1,4 +1,4 @@
-name: HR_Attrition_CI_Project
+name: hr-attrition-ci
 
 conda_env: conda.yaml
 
