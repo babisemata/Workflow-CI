@@ -17,23 +17,22 @@ y_train = train_df["Attrition"]
 X_test  = test_df.drop("Attrition", axis=1)
 y_test  = test_df["Attrition"]
 
-# === MLFLOW CONFIG ===
-mlflow.set_experiment("HR_Attrition_CI")
+# === TRAIN MODEL ===
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
 
-with mlflow.start_run() as run:
-    model = LogisticRegression(max_iter=1000)
-    model.fit(X_train, y_train)
+preds = model.predict(X_test)
 
-    preds = model.predict(X_test)
+acc = accuracy_score(y_test, preds)
+f1  = f1_score(y_test, preds)
 
-    acc = accuracy_score(y_test, preds)
-    f1  = f1_score(y_test, preds)
+# === LOGGING ===
+mlflow.log_metric("accuracy", acc)
+mlflow.log_metric("f1_score", f1)
 
-    mlflow.log_metric("accuracy", acc)
-    mlflow.log_metric("f1_score", f1)
+mlflow.sklearn.log_model(
+    model,
+    artifact_path="model"
+)
 
-    mlflow.sklearn.log_model(model, artifact_path="model")
-
-    # === SIMPAN RUN_ID UNTUK DOCKER STEP ===
-    with open("run_id.txt", "w") as f:
-        f.write(run.info.run_id)
+print("Active run_id:", mlflow.active_run().info.run_id)
