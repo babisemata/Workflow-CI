@@ -35,4 +35,6 @@ with mlflow.start_run():
 
     mlflow.sklearn.log_model(model, "model")
 
-print("CI Training selesai")
+with open("run_id.txt", "w") as f:
+    f.write(mlflow.active_run().info.run_id)
+
