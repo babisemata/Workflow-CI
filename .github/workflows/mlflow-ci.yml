@@ -116,7 +116,7 @@ jobs:
         run: |
           cd MLProject
           mlflow models build-docker \
-            -m runs:/${{ steps.get_run.outputs.run_id }}/model 
+            -m runs:/${{ steps.get_run.outputs.run_id }}/model \
             -n ${{ secrets.DOCKERHUB_USERNAME }}/hr-attrition-mlflow
 
       # =========================
