@@ -67,13 +67,6 @@ for C in C_values:
             # ===============================
             # Log Model
             # ===============================
-            client = MlflowClient()
-            client.transition_model_version_stage(
-                name="HR_Attrition_LogReg_Model",
-                version=16,
-                stage="Production"
-            )
-
             mlflow.sklearn.log_model(
                 model,
                 artifact_path="model",
