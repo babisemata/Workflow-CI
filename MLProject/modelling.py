@@ -35,8 +35,5 @@ mlflow.sklearn.log_model(
     artifact_path="model"
 )
 
-with open("run_id.txt", "w") as f:
-    f.write(mlflow.active_run().info.run_id)
 
-print("Active run_id:", mlflow.active_run().info.run_id)
 
