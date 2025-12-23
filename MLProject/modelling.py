@@ -8,6 +8,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from mlflow.tracking import MlflowClient
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     accuracy_score,
@@ -66,6 +67,13 @@ for C in C_values:
             # ===============================
             # Log Model
             # ===============================
+            client = MlflowClient()
+            client.transition_model_version_stage(
+                name="HR_Attrition_LogReg_Model",
+                version=16,
+                stage="Production"
+            )
+
             mlflow.sklearn.log_model(
                 model,
                 artifact_path="model",
