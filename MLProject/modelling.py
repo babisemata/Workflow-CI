@@ -68,8 +68,10 @@ for C in C_values:
             # ===============================
             mlflow.sklearn.log_model(
                 model,
-                artifact_path="model"
+                artifact_path="model",
+                registered_model_name="HR_Attrition_LogReg_Model"
             )
+
 
             # ===============================
             # Artifact Tambahan
