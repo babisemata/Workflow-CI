@@ -34,8 +34,8 @@ y_test  = test_df["Attrition"]
 # ===============================
 # Simple Tuning
 # ===============================
-C_values = [0.1, 1.0]
-solvers = ["liblinear"]
+C_values = [0.1, 1.0, 5.0]
+solvers = ["liblinear", "lbfgs"]
 
 best_f1 = -1
 best_run_id = None
